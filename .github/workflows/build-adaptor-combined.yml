@@ -40,7 +40,9 @@ jobs:
       - name: Generate image tags
         id: meta
         run: |
-          IMAGE_BASE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+          # Convert repository owner to lowercase for Docker compatibility
+          REPO_OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          IMAGE_BASE="${{ env.REGISTRY }}/${REPO_OWNER_LOWER}/beckn-adapter-combined"
 
           # Default tags
           TAGS="${IMAGE_BASE}:latest"
